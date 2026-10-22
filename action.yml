@@ -1,0 +1,42 @@
+name: ReproProof Reproducibility Audit
+description: Audit a Python ML repository for common reproducibility risks before artifact submission.
+author: ReproProof Team
+
+inputs:
+  path:
+    description: Repository path to audit
+    required: false
+    default: "."
+  paper:
+    description: Optional paper PDF/TXT/MD path
+    required: false
+    default: ""
+  fail-on:
+    description: Fail the job on high, medium, low, or none
+    required: false
+    default: "high"
+  out:
+    description: Directory for generated reports
+    required: false
+    default: "reproof-report"
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+    - name: Install ReproProof
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install "${{ github.action_path }}[paper]"
+    - name: Run audit
+      shell: bash
+      run: |
+        if [ -n "${{ inputs.paper }}" ]; then
+          python -m reproof audit "${{ inputs.path }}" --paper "${{ inputs.paper }}" --out "${{ inputs.out }}" --fail-on "${{ inputs.fail-on }}"
+        else
+          python -m reproof audit "${{ inputs.path }}" --out "${{ inputs.out }}" --fail-on "${{ inputs.fail-on }}"
+        fi

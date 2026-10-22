@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reproof"
+version = "0.1.0"
+description = "ReproProof: automated reproducibility audit for AI paper artifacts"
+readme = "REPROPROOF_README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [{name = "ReproProof Team"}]
+dependencies = []
+
+[project.optional-dependencies]
+paper = ["pypdf>=6.0"]
+
+[project.scripts]
+reproof = "reproof.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["reproof*"]

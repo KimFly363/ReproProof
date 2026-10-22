@@ -1,0 +1,9 @@
+Demo Paper: Low-Resource Visual Classification with Semantic Priors
+
+Abstract
+We evaluate the proposed method on CIFAR-100 and report F1-score as the primary metric. All experiments use three random seeds.
+
+Experimental Setup
+Dataset: CIFAR-100.
+Metrics: F1-score and accuracy.
+Training uses a batch size of 128 for 100 epochs.
