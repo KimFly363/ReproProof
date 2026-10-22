@@ -18,6 +18,14 @@ class ReadmeEntryRule(Rule):
     severity = "medium"
 
     def run(self, repo: Repository, paper_text: str = "") -> list[Issue]:
+        entry_names = {"train.py", "main.py", "run.py", "fit.py", "experiment.py"}
+        root_entries = [
+            file for file in repo.python_files
+            if "/" not in file.relative_path and file.path.name.lower() in entry_names
+        ]
+        # README run-command rules only apply to repositories with a clear root entrypoint.
+        if not root_entries:
+            return []
         if not repo.readmes:
             return [
                 Issue(

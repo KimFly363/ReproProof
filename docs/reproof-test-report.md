@@ -86,3 +86,13 @@
 干净仓库 HTML 报告：
 
 ![干净仓库报告](assets/reproof-demo-clean-result.png)
+
+## 9. 真实公开仓库测试
+
+| 仓库 | 评分 | 问题数 | 结果 |
+|---|---:|---:|---|
+| kuangliu/pytorch-cifar | 64 | 2 | R1/R2 命中 |
+| lucidrains/vit-pytorch | 82 | 1 | R1 命中 |
+| hunkim/DeepLearningZeroToAll | 82 | 1 | R2 命中 |
+
+真实仓库测试共检出 4 条风险，人工复核未发现明显误报。详细记录见 `reproof-real-repo-test.md`。

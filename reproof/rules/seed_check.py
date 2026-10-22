@@ -48,6 +48,9 @@ class SeedCheckRule(Rule):
         for file, tree in parsed:
             if tree is None:
                 continue
+            path_parts = {part.lower() for part in file.relative_path.split("/")}
+            if path_parts & {"test", "tests", "__tests__"}:
+                continue
             call_names = {call.name.lower() for call in iter_calls(tree)}
             haystack = file.text.lower()
             if call_names & {"model.fit", "optimizer.step", "loss.backward"} or any(hint in haystack for hint in TRAINING_HINTS):
