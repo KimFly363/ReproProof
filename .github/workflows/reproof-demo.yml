@@ -1,0 +1,25 @@
+name: ReproProof Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run ReproProof
+        uses: ./
+        with:
+          path: examples/demo-paper
+          paper: examples/demo-paper/paper.pdf
+          fail-on: none
+          out: reproof-report
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: reproof-report
+          path: reproof-report/
